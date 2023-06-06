@@ -18,6 +18,16 @@ app.get('/integrantes',(req,res)=>{
             "nombre":"Alexis",
             "apellido":"Chasi",
             "edad": 28
+        },
+        {
+            "nombre":"Franklin",
+            "apellido":"Patiño",
+            "edad": 21
+        },
+        {
+            "nombre":"Roberto",
+            "apellido":"Shiao",
+            "edad": 21
         }
     ])
 })
