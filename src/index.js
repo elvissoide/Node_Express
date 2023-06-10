@@ -1,149 +1,63 @@
-// const express = require('express')
-// const app = express()
-
-// ============= RUTAS, ENVIO DE CONTENIDO Y CODIGO DE STATUS =============
-
-// app.get('/',(req,res)=>{
-//     res.status(202).send(`
-//         <h1> Pagina principal </h1>
-//         <h2> Titulo nivel 2 </h2>
-//     `)
-// })
-
-// app.get('/dashboard',(req,res) => {
-//     res.status(202).send("Dashboard principal")
-// })
-
-// app.get('/contactos',(req,res) => {
-//     res.status(202).send("Contactos")
-// })
-
-// app.get('/productos',(req,res) => {
-//     res.status(202).send("Productos")
-// })
-
-// //Si se coloca primero, siempre se va a mostrar este mensaje
-// app.use((req,res) => {
-//     res.status(404).send("Page not found")
-// })
-
-// ============= TRABAJANDO CON VERBOS HTTP =============
-
-// app.get("/", (req,res) => {
-//     res.send("Obtener recursos del servidor")
-// })
-
-// app.post("/", (req,res) => {
-//     res.send("Enviar un nuevo recurso al servidor")
-// })
-
-// app.put("/", (req,res) => {
-//     res.send("Actualizar toda la informacion del recurso")
-// })
-
-// app.patch("/", (req,res) => {
-//     res.send("Actualizar solo una porcion del recurso")
-// })
-
-// app.delete("/", (req,res) => {
-//     res.send("Eliminar algun recurso del servidor")
-// })
-
-// ============= DEVOLVER CONTENIDO MULTIMEDIA =============
-
-// app.get("/", (req,res) => {
-//     res.sendFile('logo2.png',{
-//         root:__dirname
-//     })
-// })
-// console.log(__dirname);
-// console.log("Hola");
-
-// ============= DEVOLVER JSON =============
-
-// app.get("/user", (req,res) => {
-//     res.json([
-//         {
-//             "nombre":"Elvis",
-//             "apellido":"Guanoluisa",
-//             "edad":23
-//         },
-//         {
-//             "nombre":"Alexis",
-//             "apellido":"Chasi",
-//             "edad": 28
-//         },
-//         {
-//             "nombre":"Franklin",
-//             "apellido":"Patiño",
-//             "edad": 21
-//         },
-//         {
-//             "nombre":"Roberto",
-//             "apellido":"Shiao",
-//             "edad": 21
-//         }
-//     ])
-// })
-
-// ============= DEVOLVER CODIGOS DE RESPUESTA  =============
-
-// app.get("/isAlive",(req,res) => {
-//     res.sendStatus(200).send("Servidor listo")
-// })
-
-// ============= DEVOLVER VISTAS (NO FUNCIONA ESTE CODE) =============
-
-// const express = require("express")
-// const {engine} = require("express-handlebars")
-
-// const app = express()
-
-// //Archivos con extension .hbs, especificar el motor
-// app.engine('.hbs', engine({
-//     extname: '.hbs'
-// }))
-// //Establecer el motor de plantillas
-// app.set('view engine',".hbs")
-// //Ubicacion de las vistas
-// app.set('views','./src/views')
-
-// //Ruta
-// app.get('/', (req,res) => {
-//     res.render('home');
-// });
-
-// app.listen(3000)
-// console.log('Servidor ejecutandose en el puerto 3000');
-
-// ============= DEVOLVER VISTAS (CODE DEL PROFE) =============
-
 const express = require('express')
-const {engine} = require('express-handlebars');
-const path = require('path') //Arreglo de error
-
 const app = express()
 
-app.engine('.hbs',engine({
-    extname:'.hbs'
-}))
-app.set('view engine', '.hbs');
-app.set('views', path.join(__dirname,'views'));
-console.log(__dirname)
+app.use(express.json()) //Trabajar con formatos tipo json
 
-//ENDPOINTS
-app.get('/',(req,res)=>{
-    res.render('home')
+// ============ QUERY PARAMS ============
+
+app.get('/search', (req,res) => {
+    console.log(req.query);
+    if(req.query.data === 'opcion'){
+        res.send("Productos de la tienda")
+    } else {
+        res.send("Productos otros")
+    }
 })
 
-app.get('/personal',(req,res)=>{
-    res.render('personal')
-})
+// ============ TOMAR DATOS DE LA URL (NOMBRE Y PUEDE SER EDAD) ============
 
-app.get('/login',(req,res)=>{
-    res.render('login')
-})
+// app.get('/user/:profile/photo', (req, res) => {
+//     console.log(req);
+//     if (req.params.profile === 'Dex'){
+//         res.sendFile('./logo2.png', {
+//             root: __dirname
+//         })
+//     } else {
+//         res.send("Acceso negado")
+//     }
+// })
 
+// ============ TOMAR DATOS DE LA URL (DOS) ============
+// app.get('/operacion/:num1/:num2', (req,res) => {
+//     const {num1,num2} = req.params
+//Se muestra la operacion, pero no se realiza la misma
+//     // res.send(`La suma es: ${num1} + ${num2}`)
+//     res.send(`La suma es: ${Number(num1) + Number(num2)}`)
+// })
+
+// ============ TOMAR DATOS DE LA URL ============
+
+// app.get('/user/:data', (req, res) => {
+//     console.log(typeof (req.params.data))
+//     res.send(`Bienvenido - ${req.params.data}`)
+// })
+
+// app.post('/productos', (req,res) => {
+// ============ OBTENER DATOS DEL REQUEST ============
+// console.log(req.body)
+// const {nombre,edad} = req.body
+// console.log(nombre);
+// console.log(edad);
+// Este code no funciona
+// res.send(`Los datos enviados son: ${nombre} ${edad}`)
+
+// console.log(req.body)
+// const {nombre,edad} = req.body
+// res.status(200).json({
+//     nombre,
+//     edad
+// })
+// })
 
 app.listen(3000)
 console.log('Servidor ejecutandose en el puerto 3000');
